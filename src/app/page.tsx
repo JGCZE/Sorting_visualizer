@@ -15,9 +15,15 @@ const Home = () => {
       <div className="flex h-full justify-center">
         <div id="content-container" className="flex max-w-[1020px] w-full flex-col lg:px-0 px-4">
           <div className="h-[66px] relative flex items-center justify-between w-full">
-            <h1 className="text-gray-300 text-2xl font-light hidden md:flex"> Sorting vizualizer </h1>
-            <div>controls</div>
-            <div className="relative h-[calc(100vh-66px)] w-full">
+            <h1 className="text-gray-300 text-2xl font-light hidden md:flex">
+              Sorting Vizualizer
+            </h1>
+            <div>
+              controls
+            </div>
+
+          </div>
+            <div className="relative h-[calc(100vh-70px)] w-full">
               <div className="absolute bottom-[32px] w-full mx-auto left-0 right-0 flex justify-center items-end">
                 {arrayToSort.map((value, index) => (
                   <div
@@ -30,7 +36,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div>
     </main>
   );
 }
