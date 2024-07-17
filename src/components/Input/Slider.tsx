@@ -1,4 +1,5 @@
 import { MAX_ANIMATION_SPEED, MIN_ANIMATION_SPEED } from "@/lib/utils";
+import { ChangeEvent } from "react";
 
 export const Slider = ({
   min = MIN_ANIMATION_SPEED,
@@ -12,7 +13,7 @@ export const Slider = ({
   max?: number,
   step?: number,
   value: number,
-  handleChange: (e: any) => void,
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void,
   isDisabled: boolean,
 }) => {
 
@@ -25,7 +26,7 @@ export const Slider = ({
         max={max}
         step={step}
         value={value}
-        onChange={handleChange}
+        onChange={(e) => handleChange(e)}
         disabled={isDisabled}
         className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-700"
       />
