@@ -1,14 +1,14 @@
 "use client"
+import { Slider } from "@/components/Input/Slider";
 import { useSortingAlgorithmContext } from "@/context/Visualizer";
 import { useEffect } from "react";
 
 const Home = () => {
-  const { arrayToSort, isSorting } = useSortingAlgorithmContext()
+  const { arrayToSort, isSorting, animationSpeed, setAnimationSpeed } = useSortingAlgorithmContext()
 
   useEffect(() => {
-    console.log(arrayToSort)
-    console.log(isSorting)
-  }, [])
+    console.log("animationSpeed", animationSpeed)
+  }, [animationSpeed])
   
   return (
     <main className="absolute top-0 h-screen w-screen z-[-2] bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#150229_1px)] bg-[size:40px_40px]">
@@ -18,8 +18,12 @@ const Home = () => {
             <h1 className="text-gray-300 text-2xl font-light hidden md:flex">
               Sorting Vizualizer
             </h1>
-            <div>
-              controls
+            <div className="flex items-center justify-center gap-4">
+              <Slider
+                isDisabled={isSorting}
+                value={animationSpeed}
+                handleChange={(e) => setAnimationSpeed(Number(e.target.value))}
+              />
             </div>
 
           </div>
