@@ -4,3 +4,5 @@ export type SelectedOptionsType = {
   value: string,
   label: string,
 }
+
+export type AnimationArrayType = Array<[Array<number>, boolean]>

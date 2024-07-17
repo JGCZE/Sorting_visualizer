@@ -1,5 +1,5 @@
 "use client"
-import { SortingAlgorithmType } from "@/lib/types";
+import { AnimationArrayType, SortingAlgorithmType } from "@/lib/types";
 import { generateRandomNumberFromInterval, MAX_ANIMATION_SPEED } from "@/lib/utils";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -9,13 +9,14 @@ interface SortingAlgorithmContextType {
   isAnimationComplete: boolean,
   isSorting: boolean,
   resetArrayAndAnimation: () => void,
-  runAnimation: () => void,
   selectedAlgorithm: SortingAlgorithmType,
   setAnimationSpeed: (speed: number) => void,
   setIsAnimationComplete: (isComplete: boolean) => void,
   setIsSorting: (isSorting: boolean) => void,
   setSetselectedAlgorithm: (algorithm: SortingAlgorithmType) => void,
   setArrayToSort: (array: Array<number>) => void,
+  runAnimation: (animations: AnimationArrayType) => void;
+  requiresReset: boolean,
 }
 
 const SortingAlgorithmContext = createContext<SortingAlgorithmContextType | undefined>(undefined)
@@ -26,6 +27,8 @@ export const SortingAlgorithmProvider = ({ children }: {children: React.ReactNod
   const [isSorting, setIsSorting] = useState<boolean>(false)
   const [animationSpeed, setAnimationSpeed] = useState<number>(MAX_ANIMATION_SPEED)
   const [isAnimationComplete, setIsAnimationComplete] = useState<boolean>(false)
+
+  const requiresReset = isAnimationComplete || isSorting;
 
   useEffect(() => {
     resetArrayAndAnimation()
@@ -55,7 +58,47 @@ export const SortingAlgorithmProvider = ({ children }: {children: React.ReactNod
     setIsSorting(false)
   }
 
-  const runAnimation = () => {}
+  const runAnimation = (animations: AnimationArrayType) => {
+    setIsSorting(true)
+
+    const invertSpeed = (1 / animationSpeed) * 200;
+    const arrayLines = document.getElementsByClassName("array-line") as HTMLCollectionOf<HTMLElement>
+
+    const updateClassList = (
+      indexes: Array<number>,
+      addClassName: string,
+      removeClassName: string,
+    ) => (
+      indexes.forEach((index) => {
+        arrayLines[index].classList.add(addClassName);
+        arrayLines[index].classList.remove(removeClassName)
+      })
+    )
+
+    const updateHeightValue = (
+      lineIndex: number,
+      newHeight: number | undefined,
+    ) => {
+      if (newHeight === undefined) return 
+      arrayLines[lineIndex].style.height = `${newHeight}px`
+    }
+
+    animations.forEach((animation, index) => {
+      setTimeout(() => {
+        const [values, isSwap] = animation;
+
+        if (!isSwap) {
+          updateClassList(values, "change-line-color", "default-line-color")
+          setTimeout(() => {
+            updateClassList(values, "default-line-color", "default-line-color")
+          }, invertSpeed)
+        } else {
+          const [lineIndex, newHeight] = values
+          updateHeightValue(lineIndex, newHeight)
+        }
+      }, index * invertSpeed )
+    })
+  }
 
   const value = {
     animationSpeed,
@@ -70,6 +113,7 @@ export const SortingAlgorithmProvider = ({ children }: {children: React.ReactNod
     setIsSorting,
     setSetselectedAlgorithm,
     setArrayToSort,
+    requiresReset,
   };
   
 

@@ -5,12 +5,23 @@ import { useSortingAlgorithmContext } from "@/context/Visualizer";
 import { SortingAlgorithmType } from "@/lib/types";
 import { algorithmOptions } from "@/lib/utils";
 import { ChangeEvent, useEffect } from "react";
+import { FaPlayCircle } from "react-icons/fa";
+import { RxReset } from "react-icons/rx";
 
 const Home = () => {
-  const { arrayToSort, isSorting, animationSpeed, setAnimationSpeed, selectedAlgorithm, setSetselectedAlgorithm } = useSortingAlgorithmContext()
+  const { arrayToSort, isSorting, animationSpeed, setAnimationSpeed, selectedAlgorithm, setSetselectedAlgorithm, requiresReset, runAnimation, resetArrayAndAnimation } = useSortingAlgorithmContext()
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSetselectedAlgorithm(e.target.value as SortingAlgorithmType)
+  }
+
+  const handlePlay = () => {
+    if (requiresReset) {
+      resetArrayAndAnimation()
+      return
+    }
+
+    // getrate Animation Array
   }
   
   return (
@@ -33,6 +44,13 @@ const Home = () => {
                 onChange={handleSelectChange}
                 isDisabled={isSorting}
               />
+              <button className="flx items-center justify-center" onClick={() => {}}>
+                {requiresReset? (
+                  <RxReset className="text-gray-400 h-8 w-8" />
+                ) : (
+                  <FaPlayCircle className="text-system-green60 h-8 w-8" />
+                )} 
+              </button>
             </div>
 
           </div>

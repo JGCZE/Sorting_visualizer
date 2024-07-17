@@ -15,7 +15,7 @@ const Select = ({
 
 
   return (
-    <div>
+    <div className="inline-block relative w-48">
       <select
         value={defaultValue}
         onChange={onChange}
