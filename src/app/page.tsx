@@ -20,11 +20,6 @@ const Home = () => {
       resetArrayAndAnimation()
       return
     }
-
-    const arrayCopy = [...arrayToSort]
-
-    const newData = arrayCopy.sort((a,b) => a - b)
-    setArrayToSort(newData)
   }
   
   return (
