@@ -9,7 +9,7 @@ import { FaPlayCircle } from "react-icons/fa";
 import { RxReset } from "react-icons/rx";
 
 const Home = () => {
-  const { arrayToSort, isSorting, animationSpeed, setAnimationSpeed, selectedAlgorithm, setSetselectedAlgorithm, requiresReset, runAnimation, resetArrayAndAnimation } = useSortingAlgorithmContext()
+  const { arrayToSort, isSorting, animationSpeed, setAnimationSpeed, selectedAlgorithm, setSetselectedAlgorithm, requiresReset, runAnimation, resetArrayAndAnimation, setArrayToSort } = useSortingAlgorithmContext()
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSetselectedAlgorithm(e.target.value as SortingAlgorithmType)
@@ -21,7 +21,10 @@ const Home = () => {
       return
     }
 
-    // getrate Animation Array
+    const arrayCopy = [...arrayToSort]
+
+    const newData = arrayCopy.sort((a,b) => a - b)
+    setArrayToSort(newData)
   }
   
   return (
@@ -44,7 +47,7 @@ const Home = () => {
                 onChange={handleSelectChange}
                 isDisabled={isSorting}
               />
-              <button className="flx items-center justify-center" onClick={() => {}}>
+              <button className="flx items-center justify-center" onClick={handlePlay}>
                 {requiresReset? (
                   <RxReset className="text-gray-400 h-8 w-8" />
                 ) : (
