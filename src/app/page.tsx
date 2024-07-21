@@ -3,7 +3,7 @@ import Select from "@/components/Input/Select";
 import { Slider } from "@/components/Input/Slider";
 import { useSortingAlgorithmContext } from "@/context/Visualizer";
 import { SortingAlgorithmType } from "@/lib/types";
-import { algorithmOptions } from "@/lib/utils";
+import { algorithmOptions, generateAnimationArray } from "@/lib/utils";
 import { ChangeEvent, useEffect } from "react";
 import { FaPlayCircle } from "react-icons/fa";
 import { RxReset } from "react-icons/rx";
@@ -20,6 +20,8 @@ const Home = () => {
       resetArrayAndAnimation()
       return
     }
+
+    generateAnimationArray(selectedAlgorithm, isSorting, arrayToSort, runAnimation);
   }
   
   return (

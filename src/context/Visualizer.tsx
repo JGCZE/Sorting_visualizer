@@ -90,7 +90,7 @@ export const SortingAlgorithmProvider = ({ children }: {children: React.ReactNod
         if (!isSwap) {
           updateClassList(values, "change-line-color", "default-line-color")
           setTimeout(() => {
-            updateClassList(values, "default-line-color", "default-line-color")
+            updateClassList(values, "default-line-color", "change-line-color")
           }, invertSpeed)
         } else {
           const [lineIndex, newHeight] = values
