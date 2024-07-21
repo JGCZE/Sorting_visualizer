@@ -56,6 +56,22 @@ export const SortingAlgorithmProvider = ({ children }: {children: React.ReactNod
     setArrayToSort(tempArray)
     setIsAnimationComplete(false)
     setIsSorting(false)
+
+    const highestId = window.setTimeout(() => {
+      for (let i = highestId; i >=  0; i--) {
+        window.clearTimeout(i)
+      }
+    }, 0)
+
+    setTimeout(() => {
+      const arrayLines = document.getElementsByClassName(
+        "array-lines"
+      )
+      for (let i = 0; i < arrayLines.length; i++) {
+        arrayLines[i].classList.add("change-line-color");
+        arrayLines[i].classList.remove("default-line-color")
+      }
+    })
   }
 
   const runAnimation = (animations: AnimationArrayType) => {
