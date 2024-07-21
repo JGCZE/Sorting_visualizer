@@ -114,6 +114,24 @@ export const SortingAlgorithmProvider = ({ children }: {children: React.ReactNod
         }
       }, index * invertSpeed )
     })
+
+    const finalTimeout = animations.length * invertSpeed;
+
+    setTimeout(() => {
+      Array.from(arrayLines).forEach((line) => {
+        line.classList.add("pulse-animation", "change-line-color");
+        line.classList.remove("default-line-color")
+      })
+
+      setTimeout(() => {
+        Array.from(arrayLines).forEach((line) => {
+          line.classList.add("pulse-animation", "change-line-color");
+          line.classList.remove("default-line-color")
+        })
+        setIsSorting(false)
+        setIsAnimationComplete(true)
+      }, 1000)
+    }, finalTimeout)
   }
 
   const value = {
